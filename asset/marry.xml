@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<textures>
+  <item name="Marry" x=32 y=0 width=32 height=32 />
+  <item name="Alex" x=64 y=0 width=32 height=32 />
+  <item name="Grass" x=0 y=32 width=32 height=32 />
+</textures>
