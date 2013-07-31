@@ -17,14 +17,14 @@ class Map {
   SpriteSet* set;
   int width, height;
   video::Sprite* def_sprite;
-  typedef std::list<Object*> Objects;
-  Objects objects;
+  std::list<Object*> objects;
   int offset_x, offset_y;
   std::vector<Cell> grid;
   
 public:
   Map();
- 
+  ~Map();
+
   void update(int diff);
   bool load();
   void unload();

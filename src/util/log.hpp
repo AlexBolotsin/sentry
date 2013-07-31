@@ -5,9 +5,16 @@
 #include <string>
 #include <typeinfo>
 
-#define LOG_MSG(A) { std::stringstream strm;	\
-    strm << typeid(*this).name() << " " << A;	\
+
+#ifdef LOG
+#define LOG_MSG(A) { std::stringstream strm;		\
+    strm << typeid(*this).name() << " " <<		\
+      std::hex << this <<				\
+      std::dec << " " << A;				\
     Log::detail(strm.str().c_str()); }
+#else
+#define LOG_MSG(A) {}
+#endif
 
 class Log {
 public:

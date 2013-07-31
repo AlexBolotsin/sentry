@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include <SDL/SDL.h>
+#include <list>
 #include "ilistener.hpp"
 
 namespace application {
@@ -10,6 +11,8 @@ class Scene;
 
 class Game : public IListener {
   bool enabled;
+  std::list<Scene*> scenes;
+  Scene* current;
   // map of screens
 public:
   Game();

@@ -50,11 +50,17 @@ void Render::render(Map* map) {
   
   int ox = offset_x/size, oy = offset_y/size;
   int tmp_x = offset_x%size, tmp_y = offset_y%size;
+  int ex = width/size+1 < map_w ? width/size+1 : map_w, 
+      ey = height/size+1 < map_h ? height/size+1 : map_h;
 
-  for (int i = 0; i < width/size+1; i++) {
-    for (int j = 0; j < height/size+1; j++) {
+  for (int i = 0; i < ex; i++) {
+    for (int j = 0; j < ey; j++) {
       Sprite* sprite = map->cellAt(ox+i, oy+j);
-      render(sprite, sprite->w * i - tmp_x, sprite->h * j - tmp_y);
+      if (!sprite) {
+	LOG_MSG("Empty sprite from " << ox+i << ":" << oy+i);
+      } else {
+	render(sprite, sprite->w * i - tmp_x, sprite->h * j - tmp_y);
+      }
     }
   }
 }

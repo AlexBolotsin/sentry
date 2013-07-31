@@ -25,7 +25,7 @@ Sprite* TextureLoader::getSpriteByName(const std::string& name) {
 Sprite* TextureLoader::getSpriteByName(const char* name) {
   auto it = sprites.find(name);
   if (it == sprites.end()) {
-    Log::error("Wrong sprite name");
+    LOG_MSG("Wrong sprite name " << name);
     return NULL;
   }
   return it->second;

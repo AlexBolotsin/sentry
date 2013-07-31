@@ -11,7 +11,7 @@
 using application::Game;
 using application::Scene;
 
-Game::Game() : enabled(true), timer(0) {
+Game::Game() : enabled(true), timer(0), current(NULL) {
 }
 
 void Game::run() {
@@ -25,13 +25,14 @@ void Game::run() {
   input::Input input;
   input.setListener(&switcher);
   switcher.addListener(this);
-  application::Scene scene;
-  scene.load();
+  current->load();
   while (enabled) {
     startTimer();
     while (getDiff() < 1000 / FPS) {}
     input.processInput();
-    scene.update(getDiff());
+    current->update(getDiff());
+    current->render(&render);
+    render.draw();
   }
 }
 
@@ -50,4 +51,6 @@ void Game::listen(IMessage* msg) {
 }
 
 void Game::addScene(Scene* scene) {
+  if (!current) current = scene;
+  scenes.push_back(scene);
 }

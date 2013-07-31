@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
   map.setOffset(265, 265);
   SpriteSet set;
   set.setLoader(&loader);
+  set.setDefault("Grass");
   map.setSpriteSet(&set);
   Object obj;
   obj.setSpriteSet(&set);

@@ -12,7 +12,8 @@ class TextureLoader;
 class SpriteSet {
   // sprites groups
   // list of sprites
-  const char* name;
+  std::string name;
+  std::string def;
   TextureLoader* loader;
   std::list<std::string> groups;
   
@@ -20,6 +21,7 @@ public:
   bool load();
   void unload();
   void setName(const char* name);
+  void setDefault(const char* def);
   void setLoader(TextureLoader* loader);
   video::Sprite* getSprite(const char* group, int id);
   video::Sprite* getDefault();

@@ -37,5 +37,10 @@ bool Scene::ready() {
 }
 
 void Scene::setMap(Map* map) {
+  LOG_MSG("Set map");
   this->map = map;
+}
+
+Map* Scene::getMap() {
+  return map;
 }

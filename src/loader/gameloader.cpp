@@ -3,6 +3,8 @@
 #include "log.hpp"
 #include "map.hpp"
 #include "scene.hpp"
+#include "object.hpp"
+#include "textureloader.hpp"
 #include <tinyxml.h>
 
 using application::Game;
@@ -29,17 +31,17 @@ Game* GameLoader::load() {
     return NULL;
   }
 
-  Scene* start_scene = loadScene(node);
+  Scene* start_scene = loadScene(node, true);
 
   Game* game = new Game();
   game->addScene(start_scene);
 
-  node = element->FirstChildElement();
+  /*  node = element->FirstChildElement();
   while (node && node->Type() == TiXmlNode::TINYXML_ELEMENT) {
-    LOG_MSG(node->Value());
+    LOG_MSG("Current node " << node->Value());
     processNode(node, game);
-    node->Parent()->IterateChildren(node);
-  }
+    node = node->NextSibling();
+    }*/
 
   return game;
 }
@@ -57,14 +59,40 @@ Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
   //scene->setName(name);
   int walkable = 0;
   element->QueryIntAttribute("walkable", &walkable);
+  // TODO create input nadler that sets the map offset
   element = node->FirstChildElement();
   while (element) {
     std::string ename = element->Value();
     if (ename == "background") {
       LOG_MSG(ename);
     } else if (ename == "object") {
+      Object* obj = new Object();
+      obj->setName(element->Attribute("name"));
+      //obj->setSpriteSet();
+      int x, y;
+      element->QueryIntAttribute("pos_x", &x);
+      element->QueryIntAttribute("pos_y", &y);
+      //scene->getMap()->addObject(obj, x, y);
       LOG_MSG(ename);
     } else if (ename == "tile_map") {
+      LOG_MSG("Loading map");
+      Map* map = new Map();
+      map->setName(element->Attribute("name"));
+      int width, height;
+      element->QueryIntAttribute("width", &width);
+      element->QueryIntAttribute("height", &height);
+      map->setSize(width, height);
+      TextureLoader* loader = new TextureLoader();
+      loader->setName(element->Attribute("sprite_set"));
+      SpriteSet* set = new SpriteSet();
+      set->setName(element->Attribute("sprite_set"));
+      set->setLoader(loader);
+      set->setDefault(element->Attribute("default_sprite"));
+      map->setSpriteSet(set);
+      scene->setMap(map);
+    } else if (ename == "exit") {
+      LOG_MSG(ename);
+    } else if (ename == "next_screen") {
       LOG_MSG(ename);
     } else {
       LOG_MSG("Wrong item name for scene node " << ename);

@@ -9,7 +9,7 @@
 
 class TextureLoader {
   std::map<std::string, video::Sprite*> sprites;
-  const char* filename;
+  std::string filename;
   int scale;
 public:
   TextureLoader();

@@ -3,13 +3,18 @@
 
 Map::Map() : name(""), set(NULL), width(0), height(0),
 	     def_sprite(NULL), offset_x(0), offset_y(0) {
+  LOG_MSG("Creating map");
+}
+
+Map::~Map() {
+  LOG_MSG("Destoroing map;");
 }
 
 void Map::update(int diff) {
 }
 
 bool Map::load() {
-  Log::detail("Loading scene objects");
+  LOG_MSG("Loading scene objects " << objects.size());
   int counter = 0;
 
   for (Object* obj : objects) {
@@ -22,8 +27,10 @@ bool Map::load() {
 
   // TODO delete
   set->load();
-  for (Cell& cell : grid)
+  for (Cell& cell : grid) {
     cell.sprite = set->getDefault();
+    LOG_MSG(std::hex << cell.sprite);
+  }
   
   return true;
 }
@@ -36,6 +43,7 @@ void Map::unload() {
 }
 
 void Map::addObject(Object* obj, int x, int y) {
+  LOG_MSG("Adding object at " << x << ":" << y);
   objects.push_back(obj);
   grid[x + y*width].objects.push_back(obj);
 }
@@ -49,6 +57,7 @@ void Map::setSpriteSet(SpriteSet* set) {
 }
 
 void Map::setSize(int width, int height) {
+  LOG_MSG("Resize map to " << width << "x" << height);
   this->width = width;
   this->height = height;
   grid.resize(width*height);
@@ -74,5 +83,6 @@ int Map::tileSize() {
 }
 
 video::Sprite* Map::cellAt(int x, int y) {
+  LOG_MSG(x+y*width);
   return grid[x + y*width].sprite;
 }

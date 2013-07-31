@@ -20,6 +20,7 @@ public:
   void unload();
   bool ready();
   void setMap(Map* map);
+  Map* getMap();
 };
 
 };
