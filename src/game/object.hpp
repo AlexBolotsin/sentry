@@ -1,6 +1,8 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 
+#include <string>
+
 namespace video {
   struct Sprite;
 };
@@ -10,8 +12,8 @@ class SpriteSet;
 class Object {
   SpriteSet* set;
   video::Sprite* sprite;
-  const char* name;
-  const char* group;
+  std::string name;
+  std::string group;
 public:
   bool load();
   void unload();

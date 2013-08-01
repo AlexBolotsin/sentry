@@ -4,6 +4,7 @@
 #include "log.hpp"
 
 bool Object::load() {
+  LOG_MSG("Loading object " << name);
   return set->load();
 }
 
@@ -13,7 +14,7 @@ void Object::unload() {
 }
 
 void Object::update(int diff) {
-  sprite = set->getSprite(group, 0);
+  sprite = set->getSprite(group.c_str(), 0);
 }
 
 void Object::setName(const char* name ) {

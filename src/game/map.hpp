@@ -38,6 +38,7 @@ public:
   void offset(int& x, int& y);
   int tileSize();
   video::Sprite* cellAt(int x, int y);
+  std::list<video::Sprite*> spritesAt(int x, int y);
 };
 
 #endif

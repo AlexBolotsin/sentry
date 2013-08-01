@@ -67,12 +67,18 @@ Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
       LOG_MSG(ename);
     } else if (ename == "object") {
       Object* obj = new Object();
+      TextureLoader* loader = new TextureLoader();
+      loader->setName(element->Attribute("sprite_set"));
+      SpriteSet* set = new SpriteSet();
+      set->setName(element->Attribute("sprite_set"));
+      set->setLoader(loader);
+      set->setDefault(element->Attribute("default_sprite"));
       obj->setName(element->Attribute("name"));
-      //obj->setSpriteSet();
+      obj->setSpriteSet(set);
       int x, y;
       element->QueryIntAttribute("pos_x", &x);
       element->QueryIntAttribute("pos_y", &y);
-      //scene->getMap()->addObject(obj, x, y);
+      scene->getMap()->addObject(obj, x, y);
       LOG_MSG(ename);
     } else if (ename == "tile_map") {
       LOG_MSG("Loading map");

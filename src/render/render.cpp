@@ -61,6 +61,8 @@ void Render::render(Map* map) {
       } else {
 	render(sprite, sprite->w * i - tmp_x, sprite->h * j - tmp_y);
       }
+      for (Sprite* object : map->spritesAt(ox+i, oy+j))
+	render(object, object->w * i - tmp_x, object->h * j - tmp_y);
     }
   }
 }
