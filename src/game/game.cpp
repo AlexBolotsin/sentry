@@ -11,7 +11,7 @@
 using application::Game;
 using application::Scene;
 
-Game::Game() : enabled(true), timer(0), current(NULL) {
+Game::Game() : enabled(true), current(NULL), timer(0) {
 }
 
 void Game::run() {

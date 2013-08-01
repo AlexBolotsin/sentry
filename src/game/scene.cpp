@@ -9,6 +9,10 @@ using application::Scene;
 Scene::Scene() : isReady(false) {
 }
 
+void Scene::setName(const char* name) {
+  this->name = name;
+}
+
 void Scene::render(video::Render* render) {
   render->render(map);
   /*

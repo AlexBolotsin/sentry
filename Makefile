@@ -4,11 +4,11 @@ LIBS=-L/usr/lib/x86-64-linux-gnu -lSDL -lSDL_image -lSDL_gfx -ltinyxml
 FLAGS=-std=c++11 -g -Wall -DLOG
 
 all: objs
-	g++ main.cpp $(FLAGS) $(INCLUDES) -o bin/run $(wildcard bin/*.o) $(LIBS)
+	g++ main.cpp $(FLAGS) $(INCLUDES) -o bin/run $(wildcard obj/*.o) $(LIBS)
 
 objs: $(SRC)
 	g++ $(FLAGS) $(INCLUDES) -c $^
-	mv *.o bin
+	mv *.o obj
 
 tests: objs
 	g++ tests/drawSpriteTest.cpp $(FLAGS) $(INCLUDES) -o bin/drawSpriteTest $(wildcard bin/*.o) $(LIBS)
@@ -24,5 +24,5 @@ todo:
 	find . -name "*.[ch]pp" | xargs grep -Rn "TODO"
 
 clean:
-	rm bin/*
+	#rm bin/*
 	find -name "*.*~" -exec rm {} \;

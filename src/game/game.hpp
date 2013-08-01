@@ -14,6 +14,8 @@ class Game : public IListener {
   std::list<Scene*> scenes;
   Scene* current;
   // map of screens
+  Uint32 timer;
+
 public:
   Game();
   void run();
@@ -22,7 +24,6 @@ public:
   void addScene(Scene* scene);
 
 private:
-  Uint32 timer;
   void startTimer();
   Uint32 getDiff();
 };

@@ -27,7 +27,7 @@ void FontRender::drawMessage(std::string& message, int x, int y, bool bg) {
   std::string copy = message;
   std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
   if (bg) drawBG(copy.size(), x, y);
-  for (int i = 0; i < message.size(); i++) {
+  for (unsigned int i = 0; i < message.size(); i++) {
     video::Sprite* sprite = loader.getSpriteByName(copy[i]);
     if (!sprite) continue;
     render->render(sprite, x + i*sprite->w, y);

@@ -47,16 +47,12 @@ Game* GameLoader::load() {
 }
 
 void GameLoader::processNode(TiXmlNode* node, Game* game) {
-  if (node->ValueStr() == "start_screen") {
-    Map* map = loadMap(node);
-  }
 }
 
 Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
   TiXmlElement* element = node->ToElement();
   Scene* scene = new Scene();
-  const char* name = element->Attribute("name");
-  //scene->setName(name);
+  scene->setName(element->Attribute("name"));
   int walkable = 0;
   element->QueryIntAttribute("walkable", &walkable);
   // TODO create input nadler that sets the map offset
@@ -113,6 +109,5 @@ SpriteSet* GameLoader::loadSpriteSet(TiXmlNode* node) {
 }
 
 Map* GameLoader::loadMap(TiXmlNode* node) {
-  Map* map = new Map();
   return NULL;
 }

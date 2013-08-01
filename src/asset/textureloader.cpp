@@ -91,8 +91,8 @@ void TextureLoader::cutPiece(SDL_Surface* source, Sprite* sprite) {
 				       sprite->h, 32, 0, 0, 0, 0);
   SDL_SetColorKey(sprite->image, SDL_SRCCOLORKEY | SDL_RLEACCEL,
 		  SDL_MapRGB(sprite->image->format, 255, 0, 255));
-  SDL_Rect source_rect = {sprite->x, sprite->y, sprite->w, sprite->h};
-  SDL_Rect dest_rect = {0, 0, sprite->w, sprite->h};
+  SDL_Rect source_rect = {(Sint16)sprite->x, (Sint16)sprite->y,(Uint16) sprite->w, (Uint16)sprite->h};
+  SDL_Rect dest_rect = {0, 0, (Uint16)sprite->w, (Uint16)sprite->h};
   SDL_BlitSurface(source, &source_rect, sprite->image, &dest_rect);
     rescale(sprite);
 }

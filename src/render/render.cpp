@@ -34,8 +34,8 @@ void Render::render(Sprite* sprite, int x, int y) {
     return;
   }
   //SDL_LockSurface(screen);
-  SDL_Rect sprite_rect = {0, 0, sprite->w, sprite->h};
-  SDL_Rect screen_rect = {x, y, sprite->w, sprite->h};
+  SDL_Rect sprite_rect = {0, 0, (Uint16)sprite->w, (Uint16)sprite->h};
+  SDL_Rect screen_rect = {(Sint16)x, (Sint16)y, (Uint16)sprite->w, (Uint16)sprite->h};
   SDL_BlitSurface(sprite->image, &sprite_rect, screen, &screen_rect);
   //SDL_UnlockSurface(screen);
 }
@@ -43,7 +43,6 @@ void Render::render(Sprite* sprite, int x, int y) {
 void Render::render(Map* map) {
   int map_w, map_h;
   int offset_x, offset_y;
-  bool stop = false;
   map->size(map_w, map_h);
   int size = map->tileSize();
   map->offset(offset_x, offset_y);
