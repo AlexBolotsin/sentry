@@ -4,6 +4,11 @@
 using namespace message;
 
 KeyReleased::KeyReleased(input::Key key) {
+  this->key = key;
+}
+
+input::Key KeyReleased::getKey() {
+  return key;
 }
 
 void KeyReleased::exec() {

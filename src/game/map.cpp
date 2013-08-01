@@ -31,7 +31,6 @@ bool Map::load() {
     cell.sprite = set->getDefault();
     for (Object* obj : cell.objects)
       obj->load();
-    LOG_MSG(std::hex << cell.sprite);
   }
   
   return true;
@@ -85,12 +84,10 @@ int Map::tileSize() {
 }
 
 video::Sprite* Map::cellAt(int x, int y) {
-  LOG_MSG(x+y*width);
   return grid[x + y*width].sprite;
 }
 
 std::list<video::Sprite*> Map::spritesAt(int x, int y) {
-  LOG_MSG(x+y*width);
   std::list<video::Sprite*> sprites;
   for (Object* obj : grid[x+y*width].objects) {
     sprites.push_back(obj->getSprite());

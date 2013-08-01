@@ -25,6 +25,7 @@ void Game::run() {
   input::Input input;
   input.setListener(&switcher);
   switcher.addListener(this);
+  switcher.addListener(current);
   current->load();
   while (enabled) {
     startTimer();

@@ -63,14 +63,13 @@ void Input::processInput() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
-    case SDL_KEYDOWN:
-      {
+    case SDL_KEYDOWN: {
       Key key = convertKey(event.key.keysym.sym);
       setState(key, STATE_PRESSED);
       message::KeyPressed keyPressed(key);
       listener->listen(&keyPressed);
       continue;
-      }
+    }
     case SDL_KEYUP: {
       Key key = convertKey(event.key.keysym.sym);
       setState(key, STATE_RELEASED);
@@ -88,7 +87,7 @@ void Input::processInput() {
 
 void Input::sendMessage(IMessage* msg) {
   if(!listener) return;
-  LOG_MSG(__FUNCTION__ << " Sending message " << (int)msg->type());
+  LOG_MSG(" Sending message " << (int)msg->type());
   listener->listen(msg);
 }
 
@@ -97,7 +96,6 @@ bool Input::isPressed(Key key) {
 }
 
 void Input::setState(Key key, State state) {
-  LOG_MSG(__FUNCTION__ << (int)key << (int)state);
   keys[key] = state;
 }
 

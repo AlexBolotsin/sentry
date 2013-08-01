@@ -2,6 +2,7 @@
 #define SCENE_HPP
 
 #include "render.hpp"
+#include "ilistener.hpp"
 #include <string>
 
 class Object;
@@ -9,7 +10,7 @@ class Map;
 
 namespace application {
 
-class Scene {
+class Scene : public IListener {
   Map* map;
   bool isReady;
   std::string name;
@@ -24,6 +25,7 @@ public:
   bool ready();
   void setMap(Map* map);
   Map* getMap();
+  void listen(IMessage* msg);
 };
 
 };

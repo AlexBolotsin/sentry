@@ -96,6 +96,7 @@ Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
       LOG_MSG(ename);
     } else if (ename == "next_screen") {
       LOG_MSG(ename);
+    } else if (ename == "player") {
     } else {
       LOG_MSG("Wrong item name for scene node " << ename);
     }

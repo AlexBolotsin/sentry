@@ -3,6 +3,9 @@
 #include "object.hpp"
 #include "map.hpp"
 #include "log.hpp"
+#include "messages.hpp"
+#include "keypressed.hpp"
+#include "keyreleased.hpp"
 
 using application::Scene;
 
@@ -47,4 +50,21 @@ void Scene::setMap(Map* map) {
 
 Map* Scene::getMap() {
   return map;
+}
+
+void Scene::listen(IMessage* msg) {
+  switch (msg->type()) {
+  case message::MSG_KEY_PRESSED: {
+    message::KeyPressed* press = dynamic_cast<message::KeyPressed*>(msg);
+    LOG_MSG("Pressed key " << press->getKey());
+    break;
+  }
+  case message::MSG_KEY_RELEASED: {
+    message::KeyReleased* release = dynamic_cast<message::KeyReleased*>(msg);
+    LOG_MSG("Released key " << release->getKey());
+    break;
+  }
+  default:
+    break;
+  }
 }

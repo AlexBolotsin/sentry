@@ -7,8 +7,10 @@
 namespace message {
 
 class KeyPressed : public IMessage {
+  input::Key key;
 public:
   KeyPressed(input::Key key);
+  input::Key getKey();
   void exec();
   int type();
 };

@@ -31,6 +31,5 @@ video::Sprite* SpriteSet::getSprite(const char* group, int id) {
 }
 
 video::Sprite* SpriteSet::getDefault() {
-  LOG_MSG(def);
   return loader->getSpriteByName(def);
 }
