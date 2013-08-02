@@ -21,11 +21,8 @@ int main(int argc, char** argv) {
   Object obj;
   obj.setSpriteSet(&set);
   application::Scene scene1;
-  map.addObject(&obj, 0, 0);
   application::Scene scene2;
-  map.addObject(&obj, 0, 0);
   application::Scene scene3;
-  map.addObject(&obj, 0, 0);
 
   scene1.setMap(&map);
   bool result = scene1.load();

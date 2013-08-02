@@ -14,9 +14,9 @@ void Map::update(int diff) {
 }
 
 bool Map::load() {
-  LOG_MSG("Loading scene objects " << objects.size());
+  /*LOG_MSG("Loading scene objects " << objects.size());
   int counter = 0;
-
+  
   for (Object* obj : objects) {
     if (!obj->load())
       return false;
@@ -27,11 +27,9 @@ bool Map::load() {
 
   // TODO delete
   set->load();
-  for (Cell& cell : grid) {
-    cell.sprite = set->getDefault();
-    for (Object* obj : cell.objects)
-      obj->load();
-  }
+  for (video::Sprite* cell : grid) {
+    cell = set->getDefault();
+    }*/
   
   return true;
 }
@@ -41,12 +39,6 @@ void Map::unload() {
   for (Object* obj : objects) {
     obj->unload();
   }
-}
-
-void Map::addObject(Object* obj, int x, int y) {
-  LOG_MSG("Adding object at " << x << ":" << y);
-  objects.push_back(obj);
-  grid[x + y*width].objects.push_back(obj);
 }
 
 void Map::setName(const char* name) {
@@ -84,13 +76,6 @@ int Map::tileSize() {
 }
 
 video::Sprite* Map::cellAt(int x, int y) {
-  return grid[x + y*width].sprite;
+  return grid[x + y*width];
 }
 
-std::list<video::Sprite*> Map::spritesAt(int x, int y) {
-  std::list<video::Sprite*> sprites;
-  for (Object* obj : grid[x+y*width].objects) {
-    sprites.push_back(obj->getSprite());
-  }
-  return sprites;
-}

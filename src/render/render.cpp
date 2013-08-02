@@ -46,11 +46,13 @@ void Render::render(Map* map) {
   map->size(map_w, map_h);
   int size = map->tileSize();
   map->offset(offset_x, offset_y);
-  
+
   int ox = offset_x/size, oy = offset_y/size;
   int tmp_x = offset_x%size, tmp_y = offset_y%size;
-  int ex = width/size+1 < map_w ? width/size+1 : map_w, 
+  int ex = width/size+1 < map_w ? width/size+1 : map_w,
       ey = height/size+1 < map_h ? height/size+1 : map_h;
+  int screen_offset_x = map_w*size < width ? (width - map_w*size)/2 : 0,
+      screen_offset_y = map_h*size < height ? (height - map_h*size)/2 : 0;
 
   for (int i = 0; i < ex; i++) {
     for (int j = 0; j < ey; j++) {
@@ -58,12 +60,17 @@ void Render::render(Map* map) {
       if (!sprite) {
 	LOG_MSG("Empty sprite from " << ox+i << ":" << oy+i);
       } else {
-	render(sprite, sprite->w * i - tmp_x, sprite->h * j - tmp_y);
+	render(sprite, sprite->w * i - tmp_x + screen_offset_x, sprite->h * j - tmp_y + screen_offset_y);
       }
-      for (Sprite* object : map->spritesAt(ox+i, oy+j))
-	render(object, object->w * i - tmp_x, object->h * j - tmp_y);
+      /*for (Sprite* object : map->spritesAt(ox+i, oy+j))
+	render(object, object->w * i - tmp_x + screen_offset_x, object->h * j - tmp_y + screen_offset_y);
+      */
     }
   }
+}
+
+void Render::clear() {
+  SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 }
 
 void Render::draw() {

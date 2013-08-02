@@ -32,6 +32,7 @@ void Game::run() {
     while (getDiff() < 1000 / FPS) {}
     input.processInput();
     current->update(getDiff());
+    render.clear();
     current->render(&render);
     render.draw();
   }

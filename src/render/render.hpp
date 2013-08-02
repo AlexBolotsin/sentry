@@ -23,6 +23,7 @@ public:
   void setSize(int width, int height);
   void render(Sprite* sprite, int x, int y);
   void render(Map* map);
+  void clear();
   void draw();
 };
 

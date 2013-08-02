@@ -62,6 +62,7 @@ Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
     if (ename == "background") {
       LOG_MSG(ename);
     } else if (ename == "object") {
+      break;
       Object* obj = new Object();
       TextureLoader* loader = new TextureLoader();
       loader->setName(element->Attribute("sprite_set"));
@@ -74,7 +75,6 @@ Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
       int x, y;
       element->QueryIntAttribute("pos_x", &x);
       element->QueryIntAttribute("pos_y", &y);
-      scene->getMap()->addObject(obj, x, y);
       LOG_MSG(ename);
     } else if (ename == "tile_map") {
       LOG_MSG("Loading map");

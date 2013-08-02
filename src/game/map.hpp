@@ -8,18 +8,14 @@
 #include "object.hpp"
 
 class Map {
-  struct Cell {
-    std::list<Object*> objects;
-    video::Sprite* sprite;
-  };
-
   const char* name;
   SpriteSet* set;
   int width, height;
   video::Sprite* def_sprite;
   std::list<Object*> objects;
+  Object* player_cell;
   int offset_x, offset_y;
-  std::vector<Cell> grid;
+  std::vector<video::Sprite*> grid;
   
 public:
   Map();
@@ -29,7 +25,6 @@ public:
   bool load();
   void unload();
   void render(video::Render* render);
-  void addObject(Object* obj, int x, int y);
   void setName(const char* name);
   void setSpriteSet(SpriteSet* set);
   void setSize(int width, int height);
@@ -38,7 +33,6 @@ public:
   void offset(int& x, int& y);
   int tileSize();
   video::Sprite* cellAt(int x, int y);
-  std::list<video::Sprite*> spritesAt(int x, int y);
 };
 
 #endif
