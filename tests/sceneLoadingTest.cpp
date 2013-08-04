@@ -13,11 +13,9 @@ int main(int argc, char** argv) {
   loader.setName("marry");
   Map map;
   map.setSize(100, 100);
-  map.setOffset(265, 265);
   SpriteSet set;
   set.setLoader(&loader);
   set.setDefault("Grass");
-  map.setSpriteSet(&set);
   Object obj;
   obj.setSpriteSet(&set);
   application::Scene scene1;

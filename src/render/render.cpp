@@ -44,8 +44,7 @@ void Render::render(Map* map) {
   int map_w, map_h;
   int offset_x, offset_y;
   map->size(map_w, map_h);
-  int size = map->tileSize();
-  map->offset(offset_x, offset_y);
+  int size = 0;
 
   int ox = offset_x/size, oy = offset_y/size;
   int tmp_x = offset_x%size, tmp_y = offset_y%size;
@@ -56,7 +55,7 @@ void Render::render(Map* map) {
 
   for (int i = 0; i < ex; i++) {
     for (int j = 0; j < ey; j++) {
-      Sprite* sprite = map->cellAt(ox+i, oy+j);
+      Sprite* sprite = NULL;
       if (!sprite) {
 	LOG_MSG("Empty sprite from " << ox+i << ":" << oy+i);
       } else {

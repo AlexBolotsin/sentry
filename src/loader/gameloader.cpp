@@ -86,11 +86,6 @@ Scene* GameLoader::loadScene(TiXmlNode* node, bool load_start_screen) {
       map->setSize(width, height);
       TextureLoader* loader = new TextureLoader();
       loader->setName(element->Attribute("sprite_set"));
-      SpriteSet* set = new SpriteSet();
-      set->setName(element->Attribute("sprite_set"));
-      set->setLoader(loader);
-      set->setDefault(element->Attribute("default_sprite"));
-      map->setSpriteSet(set);
       scene->setMap(map);
     } else if (ename == "exit") {
       LOG_MSG(ename);

@@ -29,13 +29,11 @@ void Scene::update(int diff) {
 }
 
 bool Scene::load() {
-  isReady = map->load();
-  return isReady;
+  return true;
 }
 
 void Scene::unload() {
   LOG_MSG("Droping map");
-  map->unload();
   isReady = false;
 }
 
