@@ -5,7 +5,7 @@
 #include <list>
 #include "ilistener.hpp"
 
-namespace application {
+namespace core {
 
 class Scene;
 
@@ -22,8 +22,11 @@ public:
   void listen(IMessage* msg);
   void setName(const char* name);
   void addScene(Scene* scene);
+  int exitCode();
 
 private:
+  int exit;
+  int fps;
   void startTimer();
   Uint32 getDiff();
 };

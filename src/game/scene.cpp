@@ -7,7 +7,7 @@
 #include "keypressed.hpp"
 #include "keyreleased.hpp"
 
-using application::Scene;
+using core::Scene;
 
 Scene::Scene() : isReady(false) {
 }

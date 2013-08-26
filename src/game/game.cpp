@@ -8,10 +8,10 @@
 
 #define FPS 45
 
-using application::Game;
-using application::Scene;
+using core::Game;
+using core::Scene;
 
-Game::Game() : enabled(true), current(NULL), timer(0) {
+Game::Game() : enabled(true), current(NULL), timer(0), fps(0), exit(0) {
 }
 
 void Game::run() {
@@ -29,7 +29,11 @@ void Game::run() {
   current->load();
   while (enabled) {
     startTimer();
-    while (getDiff() < 1000 / FPS) {}
+    while (getDiff() < 1000 / FPS) {
+        fps++;
+    }
+    LOG_MSG("Current fps is " << fps);
+    fps = 0;
     input.processInput();
     current->update(getDiff());
     render.clear();
@@ -47,12 +51,19 @@ Uint32 Game::getDiff() {
 }
 
 void Game::listen(IMessage* msg) {
-  if (msg->type() != message::MSG_QUIT) return;
-  Log::detail("Game got message");
-  enabled = false;
+  if (msg->type() == message::MSG_QUIT) {
+    Log::detail("Game got message");
+    enabled = false;
+  }
+  if (listener)
+    listener->listen(msg);
 }
 
 void Game::addScene(Scene* scene) {
   if (!current) current = scene;
   scenes.push_back(scene);
+}
+
+int Game::exitCode() {
+  return exit;
 }

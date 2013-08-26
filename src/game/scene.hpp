@@ -8,7 +8,7 @@
 class Object;
 class Map;
 
-namespace application {
+namespace core {
 
 class Scene : public IListener {
   Map* map;
