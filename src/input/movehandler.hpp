@@ -1,18 +1,15 @@
 #ifndef MOVE_HANDLER_HPP
 #define MOVE_HANDLER_HPP
 
+#include "ilistener.hpp"
+
+class Object;
+
 class MoveHandler : public IListener {
-  Object* target;
+  Object* obj;
 public:
-  void target(Object* obj) {
-    target = obj;
-  }
-  
-  virtual void listen(IMessage* msg) {
-    if (msg->type() == MSG_KEY_PRESSED) {
-      target->
-    }
-  }
+  void target(Object* obj);
+  virtual void listen(IMessage* msg);
 };
 
 #endif

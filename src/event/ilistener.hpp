@@ -7,7 +7,7 @@ class IListener {
 protected:
   IListener* listener;
 public:
-  IListener() : listener(NULL) {}
+  IListener() : listener(0) {}
   virtual ~IListener() {}
 
   virtual void listen(IMessage* msg) = 0;

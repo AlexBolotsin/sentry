@@ -1,5 +1,6 @@
 #include "fakeloader.hpp"
-#inlcude "game.hpp"
+#include "object.hpp"
+#include "map.hpp"
 
 using core::Game;
 using core::Scene;
@@ -11,9 +12,11 @@ Game* FakeLoader::load() {
   Object* obj = new Object();
   obj->setName("Alex");
   obj->spriteSet("marry");
-  scene->addObject(obj);
+  Map* map = new Map();
+  scene->setMap(map);
+  map->addObject(obj);
   MoveHandler* handler = new MoveHandler();
   handler->target(obj);
-  scene->addListener(handler);
+  scene->setListener(handler);
   return game;
 }

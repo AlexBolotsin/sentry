@@ -21,10 +21,10 @@ void freeChain(Event* chain) {
 }
 */
 
-#include "game.hpp"
-
 int main(int argc, char** argv) {
-  application::Game game;
-  game.run();
-  return 0;
+  /* Create game
+     init it
+     then run it in ifinity loop
+     return error code
+   */
 }

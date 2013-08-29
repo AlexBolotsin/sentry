@@ -5,7 +5,8 @@
 #include <vector>
 #include "render.hpp"
 #include "spriteset.hpp"
-#include "object.hpp"
+
+class Object;
 
 class Map {
   std::string name;
@@ -19,6 +20,7 @@ public:
 
   void update(int diff);
 
+  void addObject(Object* obj);
   void setName(const char* name);
 
   void setSize(int width, int height);

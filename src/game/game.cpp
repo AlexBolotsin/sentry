@@ -11,7 +11,7 @@
 using core::Game;
 using core::Scene;
 
-Game::Game() : enabled(true), current(NULL), timer(0), fps(0), exit(0) {
+Game::Game() : enabled(true), current(NULL), timer(0), exit(0), fps(0) {
 }
 
 void Game::run() {

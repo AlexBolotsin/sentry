@@ -32,3 +32,14 @@ void Object::setAnimationSet(const char* set) {
 video::Sprite* Object::getSprite() {
   return set->getDefault();
 }
+
+void Object::move(Movement movement) {
+  moveDirections[movement] = true;
+}
+
+void Object::dontMove(Movement movement) {
+  moveDirections[movement] = false;
+}
+
+void Object::spriteSet(const char* set) {
+}

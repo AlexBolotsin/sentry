@@ -1,7 +1,7 @@
 #ifndef GAME_LOADER_HPP
 #define GAME_LOADER_HPP
 
-namespace application {
+namespace core {
 class Game;
 class Scene;
 };
@@ -12,10 +12,10 @@ class TiXmlNode;
 
 class GameLoader {
 public:
-  application::Game* load();
+  core::Game* load();
 private:
-  void processNode(TiXmlNode* node, application::Game* game);
-  application::Scene* loadScene(TiXmlNode* node, bool load_start_screen = false);
+  void processNode(TiXmlNode* node, core::Game* game);
+  core::Scene* loadScene(TiXmlNode* node, bool load_start_screen = false);
   SpriteSet* loadSpriteSet(TiXmlNode* node);
   Map* loadMap(TiXmlNode* node);
 };

@@ -7,8 +7,8 @@
 #include "textureloader.hpp"
 #include <tinyxml.h>
 
-using application::Game;
-using application::Scene;
+using core::Game;
+using core::Scene;
 
 Game* GameLoader::load() {
   TiXmlDocument doc("game.xml");
