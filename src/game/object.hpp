@@ -12,6 +12,7 @@ class SpriteSet;
 
 class Object {
 public:
+  /* Helps describe object's direction. */
   enum Movement {
     MOVE_NONE = 0,
     MOVE_UP,
@@ -20,6 +21,7 @@ public:
     MOVE_LEFT
   };
 private:
+  /* THIS ONE IS FCUKING DUMB!!!! Oh man. */
   bool moveDirections[4];
   SpriteSet* set;
   video::Sprite* sprite;
@@ -27,16 +29,25 @@ private:
   std::string group;
 public:
 
+  /* so here we go - it know specific ScripeSet to get some sprites,
+     so when it really needs it ask SpriteSet about geting it from disk.
+     Simple but not so much.
+   */
   bool load();
+  /* Do you really wanna know? */
   void unload();
+  /* Updates some logic and animations. */
   void update(int diff);
+  /* I'm tired describing this setName procedures. */
   void setName(const char* name);
-  void setSpriteSet(SpriteSet* set);
-  void spriteSet(const char* set);
+  /* We need to have only sprite set name */
+  void setSpriteSet(const char* set);
+  /* I don't know how to use it. But it holds a point. */
   void setAnimationSet(const char* set);
-  video::Sprite* getSprite();
+  /* I uses it in input handler to direct an object and then at map update move it */
   void move(Movement movement);
-  void dontMove(Movement movement);
+  /* that is dumb */
+  void unregMove(Movement movement);
 };
 
 #endif
