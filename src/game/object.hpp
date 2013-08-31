@@ -9,6 +9,7 @@ namespace video {
 };
 
 class SpriteSet;
+class Map;
 
 class Object {
 public:
@@ -23,8 +24,7 @@ public:
 private:
   /* THIS ONE IS FCUKING DUMB!!!! Oh man. */
   int movement;
-  SpriteSet* set;
-  video::Sprite* sprite;
+  std::string set;
   std::string name;
   std::string group;
   Map* map;
@@ -52,7 +52,7 @@ public:
   /* I uses it in input handler to direct an object and then at map update move it */
   void setMovement(Movement movement);
   /* that is dumb */
-  void unregMove(Movement movement);
+  void unregMovement(Movement movement);
 };
 
 #endif

@@ -15,16 +15,16 @@ void MoveHandler::listen(IMessage* msg) {
     KeyPressed* pressed = dynamic_cast<KeyPressed*>(msg);
     switch(pressed->getKey()) {
     case input::KEY_W:
-      obj->move(Object::MOVE_UP);
+      obj->setMovement(Object::MOVE_UP);
       break;
     case input::KEY_S:
-      obj->move(Object::MOVE_DOWN);
+      obj->setMovement(Object::MOVE_DOWN);
       break;
     case input::KEY_A:
-      obj->move(Object::MOVE_LEFT);
+      obj->setMovement(Object::MOVE_LEFT);
       break;
     case input::KEY_D:
-      obj->move(Object::MOVE_RIGHT);
+      obj->setMovement(Object::MOVE_RIGHT);
       break;
     default:
       break;
@@ -34,16 +34,16 @@ void MoveHandler::listen(IMessage* msg) {
     KeyReleased* released = dynamic_cast<KeyReleased*>(msg);
     switch(released->getKey()) {
     case input::KEY_W:
-      obj->dontMove(Object::MOVE_UP);
+      obj->unregMovement(Object::MOVE_UP);
       break;
     case input::KEY_S:
-      obj->dontMove(Object::MOVE_DOWN);
+      obj->unregMovement(Object::MOVE_DOWN);
       break;
     case input::KEY_A:
-      obj->dontMove(Object::MOVE_LEFT);
+      obj->unregMovement(Object::MOVE_LEFT);
       break;
     case input::KEY_D:
-      obj->dontMove(Object::MOVE_RIGHT);
+      obj->unregMovement(Object::MOVE_RIGHT);
       break;
     default:
       break;

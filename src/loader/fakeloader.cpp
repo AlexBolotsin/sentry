@@ -11,10 +11,10 @@ Game* FakeLoader::load() {
   Scene* scene = new Scene();
   Object* obj = new Object();
   obj->setName("Alex");
-  obj->spriteSet("marry");
+  obj->setSpriteSet("marry");
   Map* map = new Map();
   scene->setMap(map);
-  map->addObject(obj);
+  map->addObject(obj, 0, 0);
   MoveHandler* handler = new MoveHandler();
   handler->target(obj);
   scene->setListener(handler);

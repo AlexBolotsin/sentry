@@ -11,13 +11,14 @@
 using core::Game;
 using core::Scene;
 
-Game::Game() : enabled(true), current(NULL), timer(0), exit(0), fps(0) {
+Game::Game() : enabled(true), currentScene(NULL), timeCounter(0), exitCode(0), fpsCount(0) {
 }
 
 void Game::run() {
   video::Render render;
   if (!render.init()) {
     Log::error("FAILED INIT RENDER");
+    exitCode = 1;
     return;
   }
 
@@ -25,29 +26,33 @@ void Game::run() {
   input::Input input;
   input.setListener(&switcher);
   switcher.addListener(this);
-  switcher.addListener(current);
-  current->load();
+  switcher.addListener(currentScene);
+  bool result = currentScene->load();
+  if (!result) {
+    exitCode = 1;
+    return;
+  }
   while (enabled) {
     startTimer();
     while (getDiff() < 1000 / FPS) {
-        fps++;
+        fpsCount++;
     }
-    LOG_MSG("Current fps is " << fps);
-    fps = 0;
+    LOG_MSG("Current fps is " << fpsCount);
+    fpsCount = 0;
     input.processInput();
-    current->update(getDiff());
+    currentScene->update(getDiff());
     render.clear();
-    current->render(&render);
+    currentScene->render(&render);
     render.draw();
   }
 }
 
 void Game::startTimer() {
-  timer = SDL_GetTicks();
+  timeCounter = SDL_GetTicks();
 }
 
 Uint32 Game::getDiff() {
-  return SDL_GetTicks() - timer;
+  return SDL_GetTicks() - timeCounter;
 }
 
 void Game::listen(IMessage* msg) {
@@ -60,10 +65,10 @@ void Game::listen(IMessage* msg) {
 }
 
 void Game::addScene(Scene* scene) {
-  if (!current) current = scene;
+  if (!currentScene) currentScene = scene;
   scenes.push_back(scene);
 }
 
-int Game::exitCode() {
-  return exit;
+int Game::getExitCode() {
+  return exitCode;
 }

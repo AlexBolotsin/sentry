@@ -16,7 +16,8 @@ void Map::setName(const char* name) {
   this->name = name;
 }
 
-void Map::addObject(Object* obj) {
+bool Map::addObject(Object* obj, int x, int y) {
+  return false;
 }
 
 void Map::setSize(int width, int height) {

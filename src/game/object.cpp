@@ -5,23 +5,21 @@
 
 bool Object::load() {
   LOG_MSG("Loading object " << name);
-  return set->load();
+  return false;
 }
 
 void Object::unload() {
   LOG_MSG("Droping set");
-  set->unload();
 }
 
 void Object::update(int diff) {
-  sprite = set->getSprite(group.c_str(), 0);
 }
 
 void Object::setName(const char* name ) {
   this->name = name;
 }
 
-void Object::setSpriteSet(SpriteSet* set) {
+void Object::setSpriteSet(const char* set) {
   this->set = set;
 }
 
@@ -29,17 +27,14 @@ void Object::setAnimationSet(const char* set) {
   group = set;
 }
 
-video::Sprite* Object::getSprite() {
-  return set->getDefault();
+void Object::move(Map* map) {
+  
 }
 
-void Object::move(Movement movement) {
-  moveDirections[movement] = true;
+void Object::setMovement(Movement movement) {
+  this->movement |= movement;
 }
 
-void Object::dontMove(Movement movement) {
-  moveDirections[movement] = false;
-}
-
-void Object::spriteSet(const char* set) {
+void Object::unregMovement(Movement movement) {
+  this->movement ^= movement;
 }
