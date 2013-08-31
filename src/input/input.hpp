@@ -33,10 +33,19 @@ class Input {
   std::map<input::Key, input::State> keys;
 public:
   Input();
+  /* This one reads all events from sdl. Then it registers it in local storage.
+   */
   void processInput();
+  /* Sends messages to listener key pressed and released.
+   */
   void sendMessage(IMessage* msg);
+  /* Old one method was used it player movement.
+     Drop it.
+   */
   bool isPressed(input::Key key);
-
+  /* Can I inherit it by IListener?
+     Probably I have to produce another class, IEmitter probably. 
+   */
   void setListener(IListener* listener);
 private:
   IListener* listener;

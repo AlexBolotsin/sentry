@@ -14,21 +14,22 @@ class Object {
 public:
   /* Helps describe object's direction. */
   enum Movement {
-    MOVE_NONE = 0,
-    MOVE_UP,
-    MOVE_DOWN,
-    MOVE_RIGHT,
-    MOVE_LEFT
+    MOVE_NONE = 0x0,
+    MOVE_UP = 0x1,
+    MOVE_DOWN = 0x2,
+    MOVE_RIGHT = 0x4,
+    MOVE_LEFT = 0x8
   };
 private:
   /* THIS ONE IS FCUKING DUMB!!!! Oh man. */
-  bool moveDirections[4];
+  int movement;
   SpriteSet* set;
   video::Sprite* sprite;
   std::string name;
   std::string group;
+  Map* map;
+  int speed;
 public:
-
   /* so here we go - it know specific ScripeSet to get some sprites,
      so when it really needs it ask SpriteSet about geting it from disk.
      Simple but not so much.
@@ -36,7 +37,7 @@ public:
   bool load();
   /* Do you really wanna know? */
   void unload();
-  /* Updates some logic and animations. */
+  /* Updates some logic and animations. And move on a map. */
   void update(int diff);
   /* I'm tired describing this setName procedures. */
   void setName(const char* name);
@@ -44,8 +45,12 @@ public:
   void setSpriteSet(const char* set);
   /* I don't know how to use it. But it holds a point. */
   void setAnimationSet(const char* set);
+  /* So I've decided to move an object on map update and move it with it's speed and direction.
+     I'll try to deal with it as it is for now. I need some tests to get a point.
+  */
+  void move(Map* map);
   /* I uses it in input handler to direct an object and then at map update move it */
-  void move(Movement movement);
+  void setMovement(Movement movement);
   /* that is dumb */
   void unregMove(Movement movement);
 };
