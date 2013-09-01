@@ -4,6 +4,8 @@
 #include <SDL/SDL_rotozoom.h>
 #include "log.hpp"
 
+std::map<std::string, TextureLoader*> TextureLoader::loaders;
+
 using video::Sprite;
 
 TextureLoader::TextureLoader() : scale(1) {
@@ -12,6 +14,12 @@ TextureLoader::TextureLoader() : scale(1) {
 TextureLoader::~TextureLoader() {
   Log::detail("Drop TextureLoader");
   clearCache();
+}
+
+TextureLoader* TextureLoader::getLoader(std::string loaderName) {
+  auto loader = loaders.find(loaderName);
+  if (loader != loaders.end()) return loader->second;
+  return NULL;
 }
 
 void TextureLoader::setName(const char* filename) {

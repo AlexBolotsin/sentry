@@ -21,7 +21,6 @@ public:
   bool load();
   void unload();
   void setName(const char* name);
-  void setDefault(const char* def);
   void setLoader(TextureLoader* loader);
   video::Sprite* getSprite(const char* group, int id);
   video::Sprite* getDefault();

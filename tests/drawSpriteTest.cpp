@@ -7,7 +7,7 @@
 int main(int argc, char* argv[]) {
   video::Render render;
   render.init();
-  TextureLoader loader;
+  /*TextureLoader loader;
   loader.setName("marry");
   video::FontRender fontrender;
   fontrender.setFontFile("8bit_font");
@@ -24,6 +24,6 @@ int main(int argc, char* argv[]) {
   render.render(loader.getSpriteByName("Alex"), 42, 24);
   render.render(loader.getSpriteByName("Marry"), 32, 32);
   render.draw();
-  usleep(10000*1000);
+  usleep(10000*1000);*/
   return 0;
 }

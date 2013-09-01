@@ -1,6 +1,18 @@
 <?xml version="1.0"?>
 <textures>
-  <item name="Marry" x=32 y=0 width=32 height=32 />
-  <item name="Alex" x=64 y=0 width=32 height=32 />
-  <item name="Grass" x=0 y=32 width=32 height=32 />
+  <group name="Marry" >
+    <spriteset name="Front">
+      <item name="front" x=32 y=0 width=32 height=32 />
+    </spriteset>
+  </group>
+  <group name="Alex">
+    <spriteset name="Front">
+      <item name="front" x=64 y=0 width=32 height=32 />
+    </spriteset>
+  </group>
+  <group name="Terrain">
+    <spriteset name ="Grass">
+      <item name="Grass1" x=0 y=32 width=32 height=32 />
+    </spriteset>
+  </group>
 </textures>

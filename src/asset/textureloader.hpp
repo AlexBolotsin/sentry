@@ -8,11 +8,12 @@
 #include "render.hpp"
 
 class TextureLoader {
+  static std::map<std::string, TextureLoader*> loaders;
   std::map<std::string, video::Sprite*> sprites;
   std::string filename;
   int scale;
 public:
-  TextureLoader();
+  static TextureLoader* getLoader(std::string loader);
   ~TextureLoader();
 
   void setName(const char* filename);
@@ -23,6 +24,8 @@ public:
   void clearCache();
 
 private:
+  TextureLoader();
+
   void cutPiece(SDL_Surface* source, video::Sprite* sprite);
   void rescale(video::Sprite* sprite);
   bool loadImage(SDL_Surface*& image);

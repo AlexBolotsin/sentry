@@ -7,7 +7,7 @@
 namespace video {
 
 class FontRender {
-  TextureLoader loader;
+  TextureLoader* loader;
   Render* render;
  public:
   FontRender();

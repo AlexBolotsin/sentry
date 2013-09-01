@@ -16,12 +16,6 @@ void SpriteSet::setName(const char* name) {
   this->name = name;
 }
 
-void SpriteSet::setDefault(const char* def) {
-  LOG_MSG("Default sprite setted to " << def);
-  this->def = def;
-  LOG_MSG(this->def);
-}
-
 void SpriteSet::setLoader(TextureLoader* loader) {
   this->loader = loader;
 }

@@ -13,7 +13,7 @@ objs: $(SRC)
 
 tests: objs
 	@g++ tests/charMovementTests.cpp $(CXXFLAGS) $(FLAGS) $(INCLUDES) -o bin/charMovementTests $(wildcard obj/*.o) $(LIBS)
-	@#g++ tests/drawSpriteTest.cpp $(CXXFLAGS) $(FLAGS) $(INCLUDES) -o bin/drawSpriteTest $(wildcard obj/*.o) $(LIBS)
+	@g++ tests/drawSpriteTest.cpp $(CXXFLAGS) $(FLAGS) $(INCLUDES) -o bin/drawSpriteTest $(wildcard obj/*.o) $(LIBS)
 	@#g++ tests/xmlReadTest.cpp $(CXXFLAGS) $(FLAGS) $(INCLUDES) -o bin/xmlReadTest $(wildcard obj/*.o) $(LIBS)
 	@#g++ tests/sceneLoadingTest.cpp $(CXXFLAGS) $(FLAGS) $(INCLUDES) -o bin/sceneLoadingTest $(wildcard obj/*.o) $(LIBS)
 	@#g++ tests/mapTest.cpp $(CXXFLAGS) $(FLAGS) $(INCLUDES) -o bin/mapTest $(wildcard obj/*.o) $(LIBS)
