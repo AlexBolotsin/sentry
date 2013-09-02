@@ -15,7 +15,8 @@ class SpriteSet {
   std::string name;
   std::string def;
   TextureLoader* loader;
-  std::list<std::string> groups;
+  std::list<std::string> sprites;
+  int currSpriteNum;
   
 public:
   bool load();

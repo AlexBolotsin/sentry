@@ -14,37 +14,44 @@ TextureLoader::TextureLoader() : scale(1) {
 TextureLoader::~TextureLoader() {
   Log::detail("Drop TextureLoader");
   clearCache();
+  for (auto loaderItr : loaders)
+    delete loaderItr.second;
 }
 
 TextureLoader* TextureLoader::getLoader(std::string loaderName) {
-  auto loader = loaders.find(loaderName);
-  if (loader != loaders.end()) return loader->second;
-  return NULL;
+  auto loaderItr = loaders.find(loaderName);
+  if (loaderItr == loaders.end()) {
+    TextureLoader* loader = new TextureLoader();
+    loader->setName(loaderName.c_str());
+    loaders[loaderName] = loader;
+    loaderItr = loaders.find(loaderName);
+  }
+  return loaderItr->second;
 }
 
 void TextureLoader::setName(const char* filename) {
   this->filename = filename;
 }
 
-Sprite* TextureLoader::getSpriteByName(const std::string& name) {
-  return getSpriteByName(name.c_str());
+Sprite* TextureLoader::getSpriteFromGroup(const std::string& name, int ingroupNum) {
+  return getSpriteFromGroup(name.c_str(), ingroupNum);
 }
 
-Sprite* TextureLoader::getSpriteByName(const char* name) {
+Sprite* TextureLoader::getSpriteFromGroup(const char* name, int ingroupNum) {
   auto it = sprites.find(name);
   if (it == sprites.end()) {
     LOG_MSG("Wrong sprite name " << name);
     return NULL;
   }
-  return it->second;
+  return it->second[ingroupNum];
 }
 
-Sprite* TextureLoader::getSpriteByName(const char name) {
+Sprite* TextureLoader::getLetter(const char name) {
   char copy[] = {name, '\0'};
-  return getSpriteByName(copy);
+  return getSpriteFromGroup(copy, 0);
 }
 
-void TextureLoader::loadTextures() {
+void TextureLoader::loadTextureGroup(std::string groupName) {
   SDL_Surface* image = NULL;
   if (!loadImage(image) && !image) return;
   
@@ -57,39 +64,50 @@ void TextureLoader::loadTextures() {
   TiXmlDocument doc;
   if (!loadXML(doc)) return;
   
-  TiXmlElement* element = doc.FirstChildElement()->FirstChildElement("item");
-  if (!element) {
-    Log::error("Can't find item");
+  TiXmlElement* xmlGroup = doc.FirstChildElement()->FirstChildElement();
+
+  while(xmlGroup) {
+    std::string xmlGroupName;
+    xmlGroup->QueryStringAttribute("name", &xmlGroupName);
+    LOG_MSG(xmlGroupName);
+    if (xmlGroupName == groupName) break;
+    xmlGroup = xmlGroup->NextSiblingElement();
+  }
+
+  if (!xmlGroup) {
+    LOG_MSG("No such group.");
     return;
   }
 
-  //clearCache();
-  
-  while (element) {
-    std::string name;
-    element->QueryStringAttribute("name", &name);
-    Log::detail(name.c_str());
-    if (sprites.find(name) == sprites.end()) {
+  TiXmlElement* xmlSpriteSet = xmlGroup->FirstChildElement();
+  while (xmlSpriteSet) {
+    std::string xmlSpriteSetName;
+    xmlSpriteSet->QueryStringAttribute("name", &xmlSpriteSetName);
+    TiXmlElement* xmlItem = xmlSpriteSet->FirstChildElement();
+    while (xmlItem) {
+      std::string xmlItemName;
+      xmlItem->QueryStringAttribute("name", &xmlItemName);
       Sprite* sprite = new Sprite();
-      element->QueryIntAttribute("x", &sprite->x);
-      element->QueryIntAttribute("y", &sprite->y);
-      element->QueryIntAttribute("width", &sprite->w);
-      element->QueryIntAttribute("height", &sprite->h);
+      xmlItem->QueryIntAttribute("x", &sprite->x);
+      xmlItem->QueryIntAttribute("y", &sprite->y);
+      xmlItem->QueryIntAttribute("width", &sprite->w);
+      xmlItem->QueryIntAttribute("height", &sprite->h);
       cutPiece(image, sprite);
-      sprites[name] = sprite;
-    } else {
-      Log::detail("Avoided reading sprite once more");
+      LOG_MSG(xmlSpriteSetName << xmlItemName);
+      sprites[xmlSpriteSetName].push_back(sprite);
+      xmlItem = xmlItem->NextSiblingElement();
     }
-
-    element = element->NextSiblingElement();
+    xmlSpriteSet = xmlSpriteSet->NextSiblingElement();
   }
   SDL_FreeSurface(image);
 }
 
 void TextureLoader::clearCache() {
-  for (auto item : sprites) {
-    SDL_FreeSurface(item.second->image);
-    delete item.second;
+  for (auto group : sprites) {
+    for (auto item : group.second) {
+      SDL_FreeSurface(item->image);
+      delete item;
+    }
   }
   sprites.clear();
 }
@@ -99,10 +117,9 @@ void TextureLoader::cutPiece(SDL_Surface* source, Sprite* sprite) {
 				       sprite->h, 32, 0, 0, 0, 0);
   SDL_SetColorKey(sprite->image, SDL_SRCCOLORKEY | SDL_RLEACCEL,
 		  SDL_MapRGB(sprite->image->format, 255, 0, 255));
-  SDL_Rect source_rect = {(Sint16)sprite->x, (Sint16)sprite->y,(Uint16) sprite->w, (Uint16)sprite->h};
+  SDL_Rect source_rect = {(Sint16)sprite->x, (Sint16)sprite->y, (Uint16)sprite->w, (Uint16)sprite->h};
   SDL_Rect dest_rect = {0, 0, (Uint16)sprite->w, (Uint16)sprite->h};
   SDL_BlitSurface(source, &source_rect, sprite->image, &dest_rect);
-    rescale(sprite);
 }
 
 void TextureLoader::rescale(Sprite* sprite) {

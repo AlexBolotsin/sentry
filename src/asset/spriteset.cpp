@@ -3,7 +3,7 @@
 #include "log.hpp"
 
 bool SpriteSet::load() {
-  loader->loadTextures();
+  //loader->loadTextures();
   //std::map<string, std::vector<Sprite*>> spriteloader->getSprites(name);
   return true;
 }
@@ -25,5 +25,5 @@ video::Sprite* SpriteSet::getSprite(const char* group, int id) {
 }
 
 video::Sprite* SpriteSet::getDefault() {
-  return loader->getSpriteByName(def);
+  return NULL;//loader->getSpriteByName(def);
 }

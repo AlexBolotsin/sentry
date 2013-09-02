@@ -2,6 +2,7 @@
 #define TEXTURELOADER_HPP
 
 #include <map>
+#include <vector>
 #include <SDL/SDL.h>
 #include <tinyxml.h>
 #include <string>
@@ -9,7 +10,7 @@
 
 class TextureLoader {
   static std::map<std::string, TextureLoader*> loaders;
-  std::map<std::string, video::Sprite*> sprites;
+  std::map<std::string, std::vector<video::Sprite*>> sprites;
   std::string filename;
   int scale;
 public:
@@ -17,10 +18,10 @@ public:
   ~TextureLoader();
 
   void setName(const char* filename);
-  video::Sprite* getSpriteByName(const std::string& name);
-  video::Sprite* getSpriteByName(const char* name);
-  video::Sprite* getSpriteByName(const char name);
-  void loadTextures();
+  video::Sprite* getSpriteFromGroup(const std::string& name, int ingroupNum);
+  video::Sprite* getSpriteFromGroup(const char* name, int ingroupNum);
+  video::Sprite* getLetter(const char name);
+  void loadTextureGroup(std::string groupName);
   void clearCache();
 
 private:
