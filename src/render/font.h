@@ -2,18 +2,18 @@
 #define FONT_HPP
 
 #include <string>
-#include "textureloader.hpp"
+#include "spriteset.hpp"
 
 namespace video {
 
 class FontRender {
-  TextureLoader* loader;
+  SpriteSet* spriteSet;
   Render* render;
  public:
   FontRender();
   ~FontRender();
 
-  void setFontFile(const char* filename);
+  void setSpriteSet(SpriteSet* spriteSet);
   void setRender(Render* render);
   void drawMessage(const char* message, int x, int y, bool bg = false);
   void drawMessage(std::string& message, int x, int y, bool bg = false);

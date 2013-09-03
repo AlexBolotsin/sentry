@@ -1,5 +1,6 @@
 #include "font.h"
 #include <algorithm>
+#include "log.hpp"
 
 using namespace video;
 
@@ -9,9 +10,8 @@ FontRender::FontRender() {
 FontRender::~FontRender() {
 }
 
-void FontRender::setFontFile(const char* filename) {
-  loader->setName(filename);
-  //loader->loadTextures();
+void FontRender::setSpriteSet(SpriteSet* spriteSet) {
+  this->spriteSet = spriteSet;
 }
 
 void FontRender::setRender(Render* render) {
@@ -28,37 +28,37 @@ void FontRender::drawMessage(std::string& message, int x, int y, bool bg) {
   std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
   if (bg) drawBG(copy.size(), x, y);
   for (unsigned int i = 0; i < message.size(); i++) {
-    video::Sprite* sprite = loader->getLetter(copy[i]);
+    video::Sprite* sprite = spriteSet->getLetter(copy[i]);
     if (!sprite) continue;
     render->render(sprite, x + i*sprite->w, y);
   }
 }
 
 void FontRender::drawBG(int size, int x, int y) {
-  video::Sprite* sprite = loader->getSpriteFromGroup("top_left_corner", 0);
+  video::Sprite* sprite = spriteSet->getSpriteByName("top_left_corner");
   render->render(sprite, x - sprite->w, y - sprite->h);
   for (int i = 0; i < size; i++) {
-    sprite = loader->getSpriteFromGroup("top_corner", 0);
+    sprite = spriteSet->getSpriteByName("top_corner");
     render->render(sprite, x + i*sprite->w, y - sprite->h);
   }
-  sprite = loader->getSpriteFromGroup("top_right_corner", 0);
+  sprite = spriteSet->getSpriteByName("top_right_corner");
   render->render(sprite, x + size*sprite->w, y - sprite->h);
 
-  sprite = loader->getSpriteFromGroup("mid_left_corner", 0);
+  sprite = spriteSet->getSpriteByName("mid_left_corner");
   render->render(sprite, x - sprite->w, y);
   for (int i = 0; i < size; i++) {
-    sprite = loader->getSpriteFromGroup("mid_place", 0);
+    sprite = spriteSet->getSpriteByName("mid_place");
     render->render(sprite, x + i * sprite->w, y);
   }
-  sprite = loader->getSpriteFromGroup("mid_right_corner", 0);
+  sprite = spriteSet->getSpriteByName("mid_right_corner");
   render->render(sprite, x + size*sprite->w, y);
 
-  sprite = loader->getSpriteFromGroup("low_left_corner", 0);
+  sprite = spriteSet->getSpriteByName("low_left_corner");
   render->render(sprite, x - sprite->w, y + sprite->h);
   for (int i = 0; i < size; i++) {
-    sprite = loader->getSpriteFromGroup("low_corner", 0);
+    sprite = spriteSet->getSpriteByName("low_corner");
     render->render(sprite, x + i*sprite->w, y + sprite->h);
   }
-  sprite = loader->getSpriteFromGroup("low_right_corner", 0);
+  sprite = spriteSet->getSpriteByName("low_right_corner");
   render->render(sprite, x + size*sprite->w, y + sprite->h);
 }

@@ -10,7 +10,7 @@
   </sprite_atlas>
   <start_screen name="TitleScreen">
     <background r=0 g=0 b=0 />
-    <object name="Logo" pos_x=0 pos_y= 0 />
+#    <object name="Logo" pos_x=0 pos_y= 0 />
     <exit event="pushButton" arg1="space" arg2="" arg3="" />
     <next_screen name="Screen1">
   </start_screen>

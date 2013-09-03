@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <textures>
   <group name="Marry" >
-    <spriteset name="Front">
+    <spriteset name="Front" type=1>
       <item name="front" x=32 y=0 width=32 height=32 />
     </spriteset>
   </group>
   <group name="Alex">
-    <spriteset name="Front">
+    <spriteset name="Front" type=1>
       <item name="front" x=64 y=0 width=32 height=32 />
     </spriteset>
   </group>
   <group name="Terrain">
-    <spriteset name ="Grass">
+    <spriteset name ="Grass" type=1>
       <item name="Grass1" x=0 y=32 width=32 height=32 />
     </spriteset>
   </group>

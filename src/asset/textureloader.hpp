@@ -2,27 +2,23 @@
 #define TEXTURELOADER_HPP
 
 #include <map>
-#include <vector>
 #include <SDL/SDL.h>
 #include <tinyxml.h>
 #include <string>
 #include "render.hpp"
+#include "spriteset.hpp"
 
 class TextureLoader {
   static std::map<std::string, TextureLoader*> loaders;
-  std::map<std::string, std::vector<video::Sprite*>> sprites;
   std::string filename;
   int scale;
 public:
   static TextureLoader* getLoader(std::string loader);
+  static void dropLoaders();
   ~TextureLoader();
 
   void setName(const char* filename);
-  video::Sprite* getSpriteFromGroup(const std::string& name, int ingroupNum);
-  video::Sprite* getSpriteFromGroup(const char* name, int ingroupNum);
-  video::Sprite* getLetter(const char name);
-  void loadTextureGroup(std::string groupName);
-  void clearCache();
+  SpriteSet* loadTextureGroup(std::string groupName);
 
 private:
   TextureLoader();
